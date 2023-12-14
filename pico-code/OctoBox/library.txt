@@ -1,0 +1,16 @@
+### uint32_t FIFO Library ###
+
+100=understood
+101=readSettings
+102=closeSerial
+103=hasFileOpen
+104=closedFile
+105
+106
+107
+108
+109
+110
+
+
+201+=tempertureVaule

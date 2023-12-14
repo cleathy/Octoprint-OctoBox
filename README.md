@@ -40,5 +40,8 @@ This project is licensed under GPL-3.0
 ## Acknowledgments
 
 - Based on the [OctoPrint-Enclosure plugin](https://github.com/vitormhenrique/OctoPrint-Enclosure) by vitormhenrique.
+- Pico core programmed using the [Arduino-Pico core](https://github.com/earlephilhower/arduino-pico/) by earlephilhower
+- Hardware programming using [PlatformIO](https://platformio.org/)
+- Using [LittleFS Library](https://github.com/littlefs-project/littlefs) by ARM Limited to store settings
 - [Any other acknowledgments or credits to contributors.]
 
