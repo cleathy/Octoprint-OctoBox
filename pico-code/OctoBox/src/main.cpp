@@ -12,7 +12,7 @@
 #include "hardware/irq.h"
 
 
-volatile bool settingsFileLock = false; // shared lock variable
+volatile bool settingsFileLock = false; // shared lock variable for settings file
 
 
 
