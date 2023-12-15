@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <LittleFS.h>
-#include <FastLED.h>
+//#include <FastLED.h>
 
 
 #include "pico/stdlib.h"
@@ -46,12 +46,79 @@ void waitUntillFileIsUnlocked(bool fileLock){
 }
 
 
+//LittleFS functions
+//Open file to read or write
+File openFile(String fileName, bool write){
+  
+  if(fileName == ""){
+    Serial.println("No filename given");
+  }
+
+  else if(!LittleFS.exists(fileName)){
+    Serial.println("File does not exist");
+  }
+  
+  else if(LittleFS.exists(fileName)){
+    while(settingsFileLock){
+      //Wait untill file is unlocked
+    }
+    settingsFileLock = true;
+    //Open file
+  LittleFS.begin();
+  File file = LittleFS.open(fileName, write ? "w" : "r");
+  //Check if file opened
+  if (!file) {
+    Serial.println("Failed to open file for reading");
+  }
+  else if(file){
+    Serial.println("File opened");
+  return file;
+  }
+  }
+  else{
+    Serial.println("Something went wrong");
+}
+  return File();
+}
+
+//Close file
+void closeFile(File file, String fileName){
+  //Close file
+  file.close();
+  //Unlock file
+  settingsFileLock = false;
+  LittleFS.end();
+}
+
+//Read file
+String readFile(String fileName){
+  File file = openFile(fileName, false);
+  String fileContent = "";
+  if(file){
+    while(file.available()){
+      fileContent += (char)file.read();
+    }
+  }
+  closeFile(file, fileName);
+  return fileContent;
+}
+
+//Overwrite file with LittleFS
+void writeFile(String fileName, String data){
+  File file = openFile(fileName, true);
+  if(file){
+    file.print(data);
+  }
+  closeFile(file, fileName);
+}
+
+
 // First core code
 void setup() {
   // put your setup code here, to run once:
    Serial.begin(115200);
   delay(5000);
-   //LittleFS.begin();
+   //Should start by transmitting the firmware version to the raspberry pi
 
 }
 
@@ -70,6 +137,25 @@ void loop() {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
